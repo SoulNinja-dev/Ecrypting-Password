@@ -31,8 +31,8 @@ def encrypt_password(key, password):
 
 
 def decrypt_password(key, encrypted_password):
-    f = Fernet(key)
-    decrypted_password = f.decrypt(encrypted_password)
+    f = Fernet(key.encode("utf-8"))
+    decrypted_password = f.decrypt(encrypted_password.encode("utf-8"))
     return decrypted_password
 
 
@@ -42,15 +42,15 @@ while True:
     if choice == '1':
         print("Do not forget this key: ")
         key = get_key()
-        print(key)
+        print(key.decode("utf-8"))
         password = input_password()
         encrypted_password = encrypt_password(key, password)
         print('Your encrypted password is: ')
-        print(encrypted_password)
+        print(encrypted_password.decode("utf-8"))
     if choice == '2':
         key = input_key()
         encrypted_password = input_encrypted_password()
         decrypted_password = decrypt_password(key, encrypted_password)
-        print(decrypted_password)
+        print("Your decrypted password is: "+decrypted_password.decode("utf-8"))
     if choice == '3':
         sys.exit()
